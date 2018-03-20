@@ -42,6 +42,7 @@
 		DC8EF87B20616445003C485D /* WeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8EF87F20616445003C485D /* WeatherUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherUITests.m; sourceTree = "<group>"; };
 		DC8EF88120616445003C485D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC8EF88E20616C4C003C485D /* Weather 1.0.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Weather 1.0.0.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,16 +84,12 @@
 		DC8EF86220616444003C485D /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				DC8EF86320616444003C485D /* AppDelegate.h */,
-				DC8EF86420616444003C485D /* AppDelegate.m */,
-				DC8EF86620616444003C485D /* ViewController.h */,
-				DC8EF86720616444003C485D /* ViewController.m */,
-				DC8EF86920616444003C485D /* Main.storyboard */,
+				DC8EF88B206167E0003C485D /* Resources */,
+				DC8EF88A2061677E003C485D /* Classes */,
 				DC8EF86F20616444003C485D /* Assets.xcassets */,
 				DC8EF87120616444003C485D /* LaunchScreen.storyboard */,
 				DC8EF87420616444003C485D /* Info.plist */,
 				DC8EF87520616444003C485D /* main.m */,
-				DC8EF86C20616444003C485D /* Weather.xcdatamodeld */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -104,6 +101,42 @@
 				DC8EF88120616445003C485D /* Info.plist */,
 			);
 			path = WeatherUITests;
+			sourceTree = "<group>";
+		};
+		DC8EF88A2061677E003C485D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DC8EF88D206168F6003C485D /* ViewControllers */,
+				DC8EF88C206168EB003C485D /* DataModel */,
+				DC8EF86320616444003C485D /* AppDelegate.h */,
+				DC8EF86420616444003C485D /* AppDelegate.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		DC8EF88B206167E0003C485D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DC8EF86920616444003C485D /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DC8EF88C206168EB003C485D /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				DC8EF86C20616444003C485D /* Weather.xcdatamodeld */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		DC8EF88D206168F6003C485D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DC8EF86720616444003C485D /* ViewController.m */,
+				DC8EF86620616444003C485D /* ViewController.h */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,9 +482,10 @@
 		DC8EF86C20616444003C485D /* Weather.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				DC8EF88E20616C4C003C485D /* Weather 1.0.0.xcdatamodel */,
 				DC8EF86D20616444003C485D /* Weather.xcdatamodel */,
 			);
-			currentVersion = DC8EF86D20616444003C485D /* Weather.xcdatamodel */;
+			currentVersion = DC8EF88E20616C4C003C485D /* Weather 1.0.0.xcdatamodel */;
 			path = Weather.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

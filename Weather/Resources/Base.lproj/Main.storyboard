@@ -1,24 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCA-Yh-lYh" userLabel="Temperature Label">
+                                <rect key="frame" x="160" y="90" width="53.5" height="86"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="86" id="mHd-D4-XqP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="49"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zU8-lL-h83" userLabel="Wunderground Image View">
+                                <rect key="frame" x="155" y="208" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="M0C-mC-Q8I"/>
+                                    <constraint firstAttribute="width" constant="64" id="bmy-yH-CV6"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toulouse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUa-X9-Ok9" userLabel="Ville Label">
+                                <rect key="frame" x="143" y="336" width="89" height="27.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAJ 20/03 17:32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LA3-Bw-Diz" userLabel="Date Label">
+                                <rect key="frame" x="139.5" y="395.5" width="96.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3c-Xm-MTf" userLabel="Refresh Button">
+                                <rect key="frame" x="167" y="426" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Gph-Wu-bk4"/>
+                                    <constraint firstAttribute="width" constant="40" id="WAK-SV-BcT"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="refresh"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <constraints>
+                            <constraint firstItem="GCA-Yh-lYh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1GN-Vc-bhh"/>
+                            <constraint firstItem="GCA-Yh-lYh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="90" id="BiK-7c-wiK"/>
+                            <constraint firstItem="LA3-Bw-Diz" firstAttribute="centerX" secondItem="dUa-X9-Ok9" secondAttribute="centerX" id="DBW-rw-Aj6"/>
+                            <constraint firstItem="LA3-Bw-Diz" firstAttribute="top" secondItem="dUa-X9-Ok9" secondAttribute="bottom" constant="32" id="Iz0-Wi-C37"/>
+                            <constraint firstItem="W3c-Xm-MTf" firstAttribute="top" secondItem="LA3-Bw-Diz" secondAttribute="bottom" constant="16" id="KSG-mW-PgQ"/>
+                            <constraint firstItem="zU8-lL-h83" firstAttribute="centerX" secondItem="GCA-Yh-lYh" secondAttribute="centerX" id="d4h-Iy-Ptv"/>
+                            <constraint firstItem="dUa-X9-Ok9" firstAttribute="top" secondItem="zU8-lL-h83" secondAttribute="bottom" constant="64" id="dwN-QH-PTy"/>
+                            <constraint firstItem="W3c-Xm-MTf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lDK-Vn-gqv"/>
+                            <constraint firstItem="zU8-lL-h83" firstAttribute="top" secondItem="GCA-Yh-lYh" secondAttribute="bottom" constant="32" id="wwr-tU-Edp"/>
+                            <constraint firstItem="dUa-X9-Ok9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xTM-OH-m7o"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="669.60000000000002" y="33.733133433283363"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="refresh" width="224" height="224"/>
+    </resources>
 </document>
