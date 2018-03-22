@@ -89,7 +89,9 @@
 
 - (IBAction)refreshAction:(id)sender {
     
-    
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd/MM HH:mm"];
+    self.dateMajLabel.text = [@"MAJ " stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]];
     
     self.villeLabel.text = self.ville;
     self.temperatureLabel.text = [self.temperature stringByAppendingString:@"°"];
