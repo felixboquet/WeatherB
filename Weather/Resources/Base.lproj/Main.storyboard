@@ -34,8 +34,8 @@
                                     <constraint firstAttribute="width" constant="64" id="bmy-yH-CV6"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toulouse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUa-X9-Ok9" userLabel="Ville Label">
-                                <rect key="frame" x="143" y="336" width="89" height="27.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rafraichir" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUa-X9-Ok9" userLabel="Ville Label">
+                                <rect key="frame" x="140" y="336" width="95" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -53,6 +53,9 @@
                                     <constraint firstAttribute="width" constant="40" id="WAK-SV-BcT"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="refresh"/>
+                                <connections>
+                                    <action selector="refreshAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RG8-ov-Rx6"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -69,6 +72,13 @@
                             <constraint firstItem="dUa-X9-Ok9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xTM-OH-m7o"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dateMajLabel" destination="LA3-Bw-Diz" id="K4m-XX-BFR"/>
+                        <outlet property="refreshButton" destination="W3c-Xm-MTf" id="Cwa-Ul-83F"/>
+                        <outlet property="temperatureLabel" destination="GCA-Yh-lYh" id="kTY-bp-hVd"/>
+                        <outlet property="villeLabel" destination="dUa-X9-Ok9" id="90c-qK-cik"/>
+                        <outlet property="wundergroundImageView" destination="zU8-lL-h83" id="Vzt-9i-jmQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

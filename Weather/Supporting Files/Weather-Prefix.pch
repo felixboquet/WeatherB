@@ -1,0 +1,14 @@
+//
+//  Weather-Prefix.pch
+//  Weather
+//
+//  Created by Felix Boquet on 21/03/2018.
+//  Copyright © 2018 Felix Boquet. All rights reserved.
+//
+
+#ifndef Weather_Prefix_pch
+#define Weather_Prefix_pch
+
+#define CLE_API_WUNDERGROUND @"b896f62d3c17257f"
+
+#endif /* Weather_Prefix_pch */
