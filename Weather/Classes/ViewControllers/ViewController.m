@@ -21,7 +21,9 @@
 @property (nonatomic, strong) NSString *temperature;
 @property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic) BOOL downloadSuccess;
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *location;
 
 @end
 
@@ -30,11 +32,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.downloadSuccess = NO;
+//    self.locationManager = [[CLLocationManager alloc] init];
+//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    self.locationManager.delegate = self;
+//    [self.locationManager startUpdatingLocation];
+//
+//    self.location = self.locationManager.location;
+//
+//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+//    [geocoder reverseGeocodeLocation:self.locationManager.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+//
+//        if (error){
+//            NSLog(@"Geocode failed with error: %@", error);
+//            return;
+//
+//        }
+//
+//        CLPlacemark *placemark = [placemarks objectAtIndex:0];
+//        NSLog(@"%@", placemark.locality);
+//    }];
+    
     
     // On met à jour la météo dès le chargement de la page
     [self downloadWundergroundWeather];
-    NSString * documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 }
 
 
@@ -44,10 +64,11 @@
 }
 
 - (void)downloadWundergroundWeather {
+    
+    // Url pour accéder à la météo
     NSString *url = @"https://api.wunderground.com/api/b896f62d3c17257f/conditions/q/CA/Toulouse.json";
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
     
     [[session dataTaskWithURL:[NSURL URLWithString:url]
             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -57,7 +78,6 @@
                 
                 if (!error) {
                     // Success
-                    self.downloadSuccess = YES;
                     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                         NSError *jsonError;
                         self.json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
@@ -76,8 +96,6 @@
                             [httpsUrl insertString:@"s" atIndex:4];
                             [self downloadImageFromURL:httpsUrl];
                         }
-                    }  else {
-                        //Web server is returning an error
                     }
                 } else {
                     // Fail
@@ -89,6 +107,12 @@
 
 - (IBAction)refreshAction:(id)sender {
     
+    // S'exécute au clic sur le bouton
+    
+    // On recharge les données de météo
+    [self downloadWundergroundWeather];
+    
+    // Date de mise à jour de la météo
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd/MM HH:mm"];
     self.dateMajLabel.text = [@"MAJ " stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]];
@@ -96,14 +120,12 @@
     self.villeLabel.text = self.ville;
     self.temperatureLabel.text = [self.temperature stringByAppendingString:@"°"];
     
-    
     [self.wundergroundImageView setImage:self.image];
-    
-    
 }
 
 - (void)downloadImageFromURL:(NSString *)fileURL {
     
+    // On va chercher l'image de la météo
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     [[session dataTaskWithURL:[NSURL URLWithString:fileURL]
             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
