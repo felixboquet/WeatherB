@@ -31,30 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    self.locationManager = [[CLLocationManager alloc] init];
-//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//    self.locationManager.delegate = self;
-//    [self.locationManager startUpdatingLocation];
-//
-//    self.location = self.locationManager.location;
-//
-//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-//    [geocoder reverseGeocodeLocation:self.locationManager.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-//
-//        if (error){
-//            NSLog(@"Geocode failed with error: %@", error);
-//            return;
-//
-//        }
-//
-//        CLPlacemark *placemark = [placemarks objectAtIndex:0];
-//        NSLog(@"%@", placemark.locality);
-//    }];
-    
-    
-    // On met à jour la météo dès le chargement de la page
-    [self downloadWundergroundWeather];
+    [self updateLocation];
 }
 
 
@@ -63,10 +40,36 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)downloadWundergroundWeather {
+- (void)updateLocation {
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.delegate = self;
+    [self.locationManager requestAlwaysAuthorization];
+    [self.locationManager startUpdatingLocation];
+    self.location = self.locationManager.location;
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:self.locationManager.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        
+        if (error){
+            NSLog(@"Geocode failed with error: %@", error);
+            return;
+            
+        }
+        
+        CLPlacemark *placemark = [placemarks objectAtIndex:0];
+        self.ville = placemark.locality;
+        NSLog(@"%@", placemark.locality);
+        // Téléchargement des données météo
+        [self downloadWundergroundWeatherForCity:placemark.locality];
+    }];
+}
+
+- (void)downloadWundergroundWeatherForCity:(NSString*)city {
     
     // Url pour accéder à la météo
-    NSString *url = @"https://api.wunderground.com/api/b896f62d3c17257f/conditions/q/CA/Toulouse.json";
+    NSString *url = [[@"https://api.wunderground.com/api/b896f62d3c17257f/conditions/q/CA/" stringByAppendingString:city] stringByAppendingString:@".json"];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -88,13 +91,14 @@
                         } else {
                             // Success Parsing JSON
                             NSMutableDictionary *observation = [[self.json valueForKey:@"current_observation"]mutableCopy];
-                            NSMutableDictionary *location = [[observation valueForKey:@"display_location"]mutableCopy];
-                            self.ville = [location objectForKey:@"city"];
                             self.temperature = [[observation objectForKey:@"temp_c"] stringValue];
                             
-                            NSMutableString *httpsUrl = [NSMutableString stringWithString:[observation objectForKey:@"icon_url"]];
-                            [httpsUrl insertString:@"s" atIndex:4];
-                            [self downloadImageFromURL:httpsUrl];
+                            if ([observation objectForKey:@"icon_url"]) {
+                                NSMutableString *httpsUrl = [NSMutableString stringWithString:[observation objectForKey:@"icon_url"]];
+                                [httpsUrl insertString:@"s" atIndex:4];
+                                [self downloadImageFromURL:httpsUrl];
+                            }
+                            
                         }
                     }
                 } else {
@@ -110,7 +114,7 @@
     // S'exécute au clic sur le bouton
     
     // On recharge les données de météo
-    [self downloadWundergroundWeather];
+    [self updateLocation];
     
     // Date de mise à jour de la météo
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
