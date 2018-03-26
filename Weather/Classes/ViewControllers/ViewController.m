@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self updateLocation];
+//    [self updateLocation];
 }
 
 
@@ -40,7 +40,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)updateLocation {
+#pragma mark - Private methods
+
+- (void)updateLocationWithCompletion:(void(^)(void))callback {
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -62,11 +64,11 @@
         self.ville = placemark.locality;
         NSLog(@"%@", placemark.locality);
         // Téléchargement des données météo
-        [self downloadWundergroundWeatherForCity:placemark.locality];
+        [self downloadWundergroundWeatherForCity:placemark.locality AndCompletion:callback];
     }];
 }
 
-- (void)downloadWundergroundWeatherForCity:(NSString*)city {
+- (void)downloadWundergroundWeatherForCity:(NSString*)city AndCompletion:(void(^)(void))callback {
     
     // Url pour accéder à la météo
     NSString *url = [[@"https://api.wunderground.com/api/b896f62d3c17257f/conditions/q/CA/" stringByAppendingString:city] stringByAppendingString:@".json"];
@@ -96,7 +98,7 @@
                             if ([observation objectForKey:@"icon_url"]) {
                                 NSMutableString *httpsUrl = [NSMutableString stringWithString:[observation objectForKey:@"icon_url"]];
                                 [httpsUrl insertString:@"s" atIndex:4];
-                                [self downloadImageFromURL:httpsUrl];
+                                [self downloadImageFromURL:httpsUrl AndCompletion:callback];
                             }
                             
                         }
@@ -109,25 +111,7 @@
       ] resume];
 }
 
-- (IBAction)refreshAction:(id)sender {
-    
-    // S'exécute au clic sur le bouton
-    
-    // On recharge les données de météo
-    [self updateLocation];
-    
-    // Date de mise à jour de la météo
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd/MM HH:mm"];
-    self.dateMajLabel.text = [@"MAJ " stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]];
-    
-    self.villeLabel.text = self.ville;
-    self.temperatureLabel.text = [self.temperature stringByAppendingString:@"°"];
-    
-    [self.wundergroundImageView setImage:self.image];
-}
-
-- (void)downloadImageFromURL:(NSString *)fileURL {
+- (void)downloadImageFromURL:(NSString *)fileURL AndCompletion:(void(^)(void))callback {
     
     // On va chercher l'image de la météo
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -136,6 +120,7 @@
                 
                 if (!error) {
                     self.image = [UIImage imageWithData:data];
+                    callback();
                 } else {
                     NSLog(@"error : %@", error);
                 }
@@ -143,5 +128,29 @@
       ] resume];
     
 }
+
+#pragma mark - IBActions
+
+- (IBAction)refreshAction:(id)sender {
+    
+    // S'exécute au clic sur le bouton
+    
+    // On recharge les données de météo
+    [self updateLocationWithCompletion:^{
+        // Date de mise à jour de la météo
+        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"dd/MM HH:mm"];
+        // Pour exécuter la modif des labels dans le thread principal sinon il y a un warning
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.dateMajLabel.text = [@"MAJ " stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]];
+            self.villeLabel.text = self.ville;
+            self.temperatureLabel.text = [self.temperature stringByAppendingString:@"°"];
+            
+            [self.wundergroundImageView setImage:self.image];
+        });
+    }];
+}
+
+
 
 @end
