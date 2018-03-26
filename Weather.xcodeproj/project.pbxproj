@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7153627B2069696F009BC7BE /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7153627A2069696F009BC7BE /* PreferencesViewController.m */; };
 		DC8EF86520616444003C485D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8EF86420616444003C485D /* AppDelegate.m */; };
 		DC8EF86820616444003C485D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8EF86720616444003C485D /* ViewController.m */; };
 		DC8EF86B20616444003C485D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC8EF86920616444003C485D /* Main.storyboard */; };
@@ -29,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		715362792069696F009BC7BE /* PreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesViewController.h; sourceTree = "<group>"; };
+		7153627A2069696F009BC7BE /* PreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesViewController.m; sourceTree = "<group>"; };
 		DC8EF86020616444003C485D /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8EF86320616444003C485D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DC8EF86420616444003C485D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 		DC8EF88D206168F6003C485D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				715362792069696F009BC7BE /* PreferencesViewController.h */,
+				7153627A2069696F009BC7BE /* PreferencesViewController.m */,
 				DC8EF86720616444003C485D /* ViewController.m */,
 				DC8EF86620616444003C485D /* ViewController.h */,
 			);
@@ -267,6 +272,7 @@
 				DC8EF86E20616444003C485D /* Weather.xcdatamodeld in Sources */,
 				DC8EF8942062C12D003C485D /* WeatherUtils.m in Sources */,
 				DC8EF86820616444003C485D /* ViewController.m in Sources */,
+				7153627B2069696F009BC7BE /* PreferencesViewController.m in Sources */,
 				DC8EF87620616444003C485D /* main.m in Sources */,
 				DC8EF86520616444003C485D /* AppDelegate.m in Sources */,
 			);

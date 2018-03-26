@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *villeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateMajLabel;
 @property (weak, nonatomic) IBOutlet UIButton *refreshButton;
+@property (weak, nonatomic) IBOutlet UIButton *preferencesButton;
 
 @property (nonatomic, strong) NSArray *json;
 @property (nonatomic, strong) NSString *ville;
@@ -31,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self updateLocation];
+    
 }
 
 
@@ -151,6 +152,8 @@
     }];
 }
 
+- (IBAction)goToPreferencesAction:(id)sender {
+}
 
 
 @end
