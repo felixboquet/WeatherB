@@ -144,8 +144,8 @@
 			children = (
 				715362792069696F009BC7BE /* PreferencesViewController.h */,
 				7153627A2069696F009BC7BE /* PreferencesViewController.m */,
-				DC8EF86720616444003C485D /* ViewController.m */,
 				DC8EF86620616444003C485D /* ViewController.h */,
+				DC8EF86720616444003C485D /* ViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

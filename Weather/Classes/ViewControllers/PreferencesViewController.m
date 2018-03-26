@@ -10,13 +10,26 @@
 
 @interface PreferencesViewController ()
 
+
 @end
 
 @implementation PreferencesViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Enregistrer"
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(savePreferences:)];
+    
+    self.navigationItem.rightBarButtonItem = save;
+    
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Annuler"
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(goBack:)];
+    self.navigationItem.leftBarButtonItem = back;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +37,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Actions
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)savePreferences:(id)sender {
+    
+    [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 }
-*/
+
+- (IBAction)goBack:(id)sender {
+    [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
