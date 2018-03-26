@@ -138,6 +138,10 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="U7v-mE-meA"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="adresseParDefautTextField" destination="gdl-Fu-eCM" id="koJ-xL-Ssj"/>
+                        <outlet property="uniteSegmentedControl" destination="UQW-6F-hLq" id="HGR-Wz-w8H"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VmW-gS-1A3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
