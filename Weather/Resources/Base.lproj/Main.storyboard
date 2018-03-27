@@ -50,37 +50,47 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3c-Xm-MTf" userLabel="Refresh Button">
-                                <rect key="frame" x="167" y="411.5" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Gph-Wu-bk4"/>
-                                    <constraint firstAttribute="width" constant="40" id="WAK-SV-BcT"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="refresh"/>
-                                <connections>
-                                    <action selector="refreshAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RG8-ov-Rx6"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4o-3d-rdO">
-                                <rect key="frame" x="60" y="504" width="46" height="30"/>
+                                <rect key="frame" x="146" y="606" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Préférences"/>
                                 <connections>
                                     <action selector="goToPreferencesAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D3m-sO-Wvo"/>
                                     <segue destination="FUb-hG-qco" kind="show" id="6ZM-X6-qRj"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9u-uv-EyG" userLabel="Home Button">
+                                <rect key="frame" x="202" y="411.5" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="UlQ-VZ-Rfl"/>
+                                    <constraint firstAttribute="height" constant="32" id="pmh-Re-ugc"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="home"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3c-Xm-MTf" userLabel="Refresh Button">
+                                <rect key="frame" x="141" y="411.5" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Gph-Wu-bk4"/>
+                                    <constraint firstAttribute="width" constant="32" id="WAK-SV-BcT"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="location"/>
+                                <connections>
+                                    <action selector="refreshAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RG8-ov-Rx6"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
                             <constraint firstItem="GCA-Yh-lYh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1GN-Vc-bhh"/>
                             <constraint firstItem="GCA-Yh-lYh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="90" id="BiK-7c-wiK"/>
                             <constraint firstItem="LA3-Bw-Diz" firstAttribute="centerX" secondItem="dUa-X9-Ok9" secondAttribute="centerX" id="DBW-rw-Aj6"/>
+                            <constraint firstItem="W3c-Xm-MTf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="125" id="DtU-Vm-kj0"/>
                             <constraint firstItem="LA3-Bw-Diz" firstAttribute="top" secondItem="dUa-X9-Ok9" secondAttribute="bottom" constant="32" id="Iz0-Wi-C37"/>
                             <constraint firstItem="W3c-Xm-MTf" firstAttribute="top" secondItem="LA3-Bw-Diz" secondAttribute="bottom" constant="16" id="KSG-mW-PgQ"/>
                             <constraint firstItem="zU8-lL-h83" firstAttribute="centerX" secondItem="GCA-Yh-lYh" secondAttribute="centerX" id="d4h-Iy-Ptv"/>
                             <constraint firstItem="dUa-X9-Ok9" firstAttribute="top" secondItem="zU8-lL-h83" secondAttribute="bottom" constant="64" id="dwN-QH-PTy"/>
-                            <constraint firstItem="W3c-Xm-MTf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lDK-Vn-gqv"/>
+                            <constraint firstItem="L9u-uv-EyG" firstAttribute="centerY" secondItem="W3c-Xm-MTf" secondAttribute="centerY" id="fPL-Xz-vLh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="L9u-uv-EyG" secondAttribute="trailing" constant="125" id="ruv-5C-0Yr"/>
                             <constraint firstItem="zU8-lL-h83" firstAttribute="top" secondItem="GCA-Yh-lYh" secondAttribute="bottom" constant="32" id="wwr-tU-Edp"/>
                             <constraint firstItem="dUa-X9-Ok9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xTM-OH-m7o"/>
                         </constraints>
@@ -167,6 +177,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="refresh" width="224" height="224"/>
+        <image name="home" width="32" height="32"/>
+        <image name="location" width="32" height="32"/>
     </resources>
 </document>

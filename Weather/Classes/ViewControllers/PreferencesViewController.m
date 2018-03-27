@@ -41,18 +41,18 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    // Fetch the devices from persistent data store
+    // On recherche les préférences
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Preferences"];
     
     self.preferences = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
     
-    // TODO : Affichage des données enregistrées
-    
-    if ([[self.preferences valueForKey:@"adresseParDefaut"] isKindOfClass:[NSString class]]) {
-        self.adresseParDefautTextField.text = [self.preferences valueForKey:@"adresseParDefaut"];
+    // Affichage des données enregistrées
+    if ([self.preferences count] != 0) {
+        self.adresseParDefautTextField.text = [[self.preferences valueForKey:@"adresseParDefaut"] objectAtIndex:0];
     }
+    
 //    [self.uniteSegmentedControl setSelectedSegmentIndex:[[self.preferences valueForKey:@"uniteMesure"] integerValue]];
 }
 
@@ -60,18 +60,24 @@
 
 - (IBAction)savePreferences:(id)sender {
     
-    NSManagedObject *preferences = [NSEntityDescription insertNewObjectForEntityForName:@"Preferences" inManagedObjectContext:[self managedObjectContext]];
-
-//    [preferences setAdresseParDefaut:self.adresseParDefautTextField.text];
-//    [preferences setUniteMesure:[NSNumber numberWithInteger:self.uniteSegmentedControl.selectedSegmentIndex]];
+    // On cherche si il y a déjà des préférences enregistrées
+    NSManagedObject *preferences;
+    if ([self.preferences count] == 0) {
+        preferences = [NSEntityDescription insertNewObjectForEntityForName:@"Preferences" inManagedObjectContext:[self managedObjectContext]];
+    } else {
+        preferences = [self.preferences objectAtIndex:0];
+    }
     
     [preferences setValue:self.adresseParDefautTextField.text forKey:@"adresseParDefaut"];
     [preferences setValue:[NSNumber numberWithInteger:self.uniteSegmentedControl.selectedSegmentIndex] forKey:@"uniteMesure"];
+    
+    // Sauvegarde
     NSError *error = nil;
     if (![[self managedObjectContext] save:&error]) {
         NSLog(@"Erreur sauvegarde des préférences %@ %@", error, [error localizedDescription]);
     }
     
+    // Retour à l'accueil
     [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
