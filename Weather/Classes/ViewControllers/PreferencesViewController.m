@@ -51,9 +51,8 @@
     // Affichage des données enregistrées
     if ([self.preferences count] != 0) {
         self.adresseParDefautTextField.text = [[self.preferences valueForKey:@"adresseParDefaut"] objectAtIndex:0];
+        [self.uniteSegmentedControl setSelectedSegmentIndex:[[[self.preferences valueForKey:@"uniteMesure"] objectAtIndex:0] integerValue]];
     }
-    
-//    [self.uniteSegmentedControl setSelectedSegmentIndex:[[self.preferences valueForKey:@"uniteMesure"] integerValue]];
 }
 
 #pragma mark - Actions

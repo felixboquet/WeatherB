@@ -25,8 +25,11 @@
 @property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) UIImage *image;
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) CLLocation *location;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *location;
+@property (nonatomic, strong) NSMutableArray *preferences;
+@property (nonatomic, strong) NSString *favoriteCity;
+@property (nonatomic) NSInteger favUnit;
 
 @end
 
@@ -35,6 +38,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self loadPreferences];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self loadPreferences];
 }
 
 
@@ -97,7 +107,11 @@
                         } else {
                             // Success Parsing JSON
                             NSMutableDictionary *observation = [[self.json valueForKey:@"current_observation"]mutableCopy];
-                            self.temperature = [[observation objectForKey:@"temp_c"] stringValue];
+                            if (self.favUnit == 0) {
+                                self.temperature = [[[observation objectForKey:@"temp_c"] stringValue] stringByAppendingString:@" C°"];
+                            } else {
+                                self.temperature = [[[observation objectForKey:@"temp_f"] stringValue] stringByAppendingString:@" °F"];
+                            }
                             self.ville = city;
                             
                             if ([observation objectForKey:@"icon_url"]) {
@@ -134,13 +148,22 @@
     
 }
 
+- (void)loadPreferences {
+    // On récupère les préférences
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Preferences"];
+    
+    self.preferences = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    self.favoriteCity = [[self.preferences valueForKey:@"adresseParDefaut"] objectAtIndex:0];
+    self.favUnit = [[[self.preferences valueForKey:@"uniteMesure"] objectAtIndex:0] integerValue];
+}
+
 #pragma mark - IBActions
 
 - (IBAction)refreshAction:(id)sender {
     
-    // S'exécute au clic sur le bouton
-    
-    // On recharge les données de météo
+    // On recharge les données de météo avec la géolocalisation
     [self updateLocationWithCompletion:^{
         // Date de mise à jour de la météo
         NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
@@ -149,7 +172,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.dateMajLabel.text = [@"MAJ " stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]];
             self.villeLabel.text = self.ville;
-            self.temperatureLabel.text = [self.temperature stringByAppendingString:@"°"];
+            self.temperatureLabel.text = self.temperature;
             
             [self.wundergroundImageView setImage:self.image];
         });
@@ -158,17 +181,10 @@
 
 - (IBAction)favoriteCityAction:(id)sender {
     
-    // On récupère la ville favorite dans les préférences
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Preferences"];
-    
-    NSMutableArray *preferences = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
-    
-    // Affichage des données enregistrées
-    if ([preferences count] != 0) {
-        NSString *favCity = [[preferences valueForKey:@"adresseParDefaut"] objectAtIndex:0];
-        [self downloadWundergroundWeatherForCity:favCity AndCompletion:^{
+    // On télécharge la météo avec la ville favorite si on en a une
+    if ([self.preferences count] != 0) {
+        
+        [self downloadWundergroundWeatherForCity:self.favoriteCity AndCompletion:^{
             // Date de mise à jour de la météo
             NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"dd/MM HH:mm"];
@@ -176,11 +192,23 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.dateMajLabel.text = [@"MAJ " stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]];
                 self.villeLabel.text = self.ville;
-                self.temperatureLabel.text = [self.temperature stringByAppendingString:@"°"];
+                self.temperatureLabel.text = self.temperature;
                 
                 [self.wundergroundImageView setImage:self.image];
             });
         }];
+    } else {
+        // Popup pour indiquer à l'utilisateur qu'il n'a pas saisi de ville par défaut
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Attention"
+                                                                       message:@"Veuillez choisir une ville par défaut dans vos préférences"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:nil];
+        
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
