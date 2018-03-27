@@ -66,6 +66,9 @@
                                     <constraint firstAttribute="height" constant="32" id="pmh-Re-ugc"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="home"/>
+                                <connections>
+                                    <action selector="favoriteCityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JGp-3G-rpX"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3c-Xm-MTf" userLabel="Refresh Button">
                                 <rect key="frame" x="141" y="411.5" width="32" height="32"/>

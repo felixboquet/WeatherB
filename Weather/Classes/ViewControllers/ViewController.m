@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "AppDelegate.h"
+#import <CoreData/CoreData.h>
 
 @interface ViewController ()
 
@@ -72,7 +74,8 @@
 - (void)downloadWundergroundWeatherForCity:(NSString*)city AndCompletion:(void(^)(void))callback {
     
     // Url pour accéder à la météo
-    NSString *url = [[@"https://api.wunderground.com/api/b896f62d3c17257f/conditions/q/CA/" stringByAppendingString:city] stringByAppendingString:@".json"];
+    // Pour faciliter le traitement dans un 1er temps, on considère qu'on est en France
+    NSString *url = [[@"https://api.wunderground.com/api/b896f62d3c17257f/conditions/q/FR/" stringByAppendingString:city] stringByAppendingString:@".json"];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -95,6 +98,7 @@
                             // Success Parsing JSON
                             NSMutableDictionary *observation = [[self.json valueForKey:@"current_observation"]mutableCopy];
                             self.temperature = [[observation objectForKey:@"temp_c"] stringValue];
+                            self.ville = city;
                             
                             if ([observation objectForKey:@"icon_url"]) {
                                 NSMutableString *httpsUrl = [NSMutableString stringWithString:[observation objectForKey:@"icon_url"]];
@@ -152,8 +156,47 @@
     }];
 }
 
+- (IBAction)favoriteCityAction:(id)sender {
+    
+    // On récupère la ville favorite dans les préférences
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Preferences"];
+    
+    NSMutableArray *preferences = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    
+    // Affichage des données enregistrées
+    if ([preferences count] != 0) {
+        NSString *favCity = [[preferences valueForKey:@"adresseParDefaut"] objectAtIndex:0];
+        [self downloadWundergroundWeatherForCity:favCity AndCompletion:^{
+            // Date de mise à jour de la météo
+            NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"dd/MM HH:mm"];
+            // Pour exécuter la modif des labels dans le thread principal sinon il y a un warning
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.dateMajLabel.text = [@"MAJ " stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]];
+                self.villeLabel.text = self.ville;
+                self.temperatureLabel.text = [self.temperature stringByAppendingString:@"°"];
+                
+                [self.wundergroundImageView setImage:self.image];
+            });
+        }];
+    }
+}
+
 - (IBAction)goToPreferencesAction:(id)sender {
 }
 
+
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate respondsToSelector:@selector(persistentContainer)]) {
+        context = [delegate persistentContainer].viewContext;
+    }
+    
+    return context;
+}
 
 @end
