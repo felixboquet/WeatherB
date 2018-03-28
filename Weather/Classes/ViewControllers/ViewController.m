@@ -154,9 +154,10 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Preferences"];
     
     self.preferences = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
-    self.favoriteCity = [[self.preferences valueForKey:@"adresseParDefaut"] objectAtIndex:0];
-    self.favUnit = [[[self.preferences valueForKey:@"uniteMesure"] objectAtIndex:0] integerValue];
+    if ([self.preferences count] != 0) {
+        self.favoriteCity = [[self.preferences valueForKey:@"adresseParDefaut"] objectAtIndex:0];
+        self.favUnit = [[[self.preferences valueForKey:@"uniteMesure"] objectAtIndex:0] integerValue];
+    }
 }
 
 #pragma mark - IBActions
