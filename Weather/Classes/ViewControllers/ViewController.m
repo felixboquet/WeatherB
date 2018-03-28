@@ -160,6 +160,25 @@
     }
 }
 
+- (void)saveHistory {
+    
+    // Méthode qui permet de sauvegarder la météo dans l'historique
+    
+    NSManagedObject *history;
+    history = [NSEntityDescription insertNewObjectForEntityForName:@"Historique" inManagedObjectContext:[self managedObjectContext]];
+
+    [history setValue:self.ville forKey:@"adresse"];
+    [history setValue:self.dateMajLabel.text forKey:@"date"];
+    [history setValue:self.temperature forKey:@"temperature"];
+    [history setValue:UIImagePNGRepresentation(self.image) forKey:@"image"];
+    
+    // Sauvegarde
+    NSError *error = nil;
+    if (![[self managedObjectContext] save:&error]) {
+        NSLog(@"Erreur sauvegarde des préférences %@ %@", error, [error localizedDescription]);
+    }
+}
+
 #pragma mark - IBActions
 
 - (IBAction)refreshAction:(id)sender {
@@ -176,6 +195,7 @@
             self.temperatureLabel.text = self.temperature;
             
             [self.wundergroundImageView setImage:self.image];
+            [self saveHistory];
         });
     }];
 }
@@ -196,6 +216,7 @@
                 self.temperatureLabel.text = self.temperature;
                 
                 [self.wundergroundImageView setImage:self.image];
+                [self saveHistory];
             });
         }];
     } else {

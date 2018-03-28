@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <UIKit/UIKit.h>
+#import "HistoryTableViewCell.h"
 
 @interface HistoryViewController : ViewController <UITableViewDelegate, UITableViewDataSource>
 

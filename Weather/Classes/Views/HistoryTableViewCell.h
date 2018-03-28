@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *meteoImageView;
 
+- (void)updateCellWithAddress:(NSString*)adresse andTemp:(NSString*)temp andDate:(NSString*)date andImage:(NSData*)img;
 
 @end
