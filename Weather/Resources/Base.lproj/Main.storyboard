@@ -50,6 +50,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3c-Xm-MTf" userLabel="Refresh Button">
+                                <rect key="frame" x="141" y="411.5" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Gph-Wu-bk4"/>
+                                    <constraint firstAttribute="width" constant="32" id="WAK-SV-BcT"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="location"/>
+                                <connections>
+                                    <action selector="refreshAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RG8-ov-Rx6"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4o-3d-rdO">
                                 <rect key="frame" x="146" y="606" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -70,15 +81,12 @@
                                     <action selector="favoriteCityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JGp-3G-rpX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3c-Xm-MTf" userLabel="Refresh Button">
-                                <rect key="frame" x="141" y="411.5" width="32" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="Gph-Wu-bk4"/>
-                                    <constraint firstAttribute="width" constant="32" id="WAK-SV-BcT"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="location"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W7w-LF-Zhz" userLabel="History Button">
+                                <rect key="frame" x="327" y="20" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="history"/>
                                 <connections>
-                                    <action selector="refreshAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RG8-ov-Rx6"/>
+                                    <segue destination="hm8-vE-47b" kind="show" id="Sy4-hg-nBr"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -160,12 +168,111 @@
             </objects>
             <point key="canvasLocation" x="1767.2" y="367.46626686656674"/>
         </scene>
+        <!--History View Controller-->
+        <scene sceneID="QLx-O4-Mvi">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vGk-xU-spq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="hm8-vE-47b" userLabel="History View Controller" customClass="HistoryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YiG-aC-tGC"/>
+                        <viewControllerLayoutGuide type="bottom" id="6vm-sU-gyv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BzD-Dc-Tlk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hkA-MA-rpf">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="historyCell" rowHeight="86" id="B9T-KD-yZw" customClass="HistoryTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="86"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B9T-KD-yZw" id="Kvw-wd-gFS">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="85.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toulouse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qux-xV-DIc" userLabel="Adresse Label">
+                                                    <rect key="frame" x="96" y="8" width="277" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLd-pe-wvO" userLabel="Temperature Label">
+                                                    <rect key="frame" x="33" y="52" width="30" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kis-Ea-y6W" userLabel="Meteo Image View">
+                                                    <rect key="frame" x="24" y="2" width="48" height="48"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="48" id="3Pc-tK-EL0"/>
+                                                        <constraint firstAttribute="width" constant="48" id="TUZ-BK-Akr"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22/03/2018 17:54" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkq-8P-dI7" userLabel="Date Label">
+                                                    <rect key="frame" x="96" y="52" width="277" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kis-Ea-y6W" firstAttribute="leading" secondItem="Kvw-wd-gFS" secondAttribute="leading" constant="24" id="6X9-ce-OmM"/>
+                                                <constraint firstAttribute="trailing" secondItem="nkq-8P-dI7" secondAttribute="trailing" constant="2" id="6rb-fV-jw4"/>
+                                                <constraint firstItem="GLd-pe-wvO" firstAttribute="top" secondItem="kis-Ea-y6W" secondAttribute="bottom" constant="2" id="T7G-ve-P9i"/>
+                                                <constraint firstItem="nkq-8P-dI7" firstAttribute="centerY" secondItem="GLd-pe-wvO" secondAttribute="centerY" id="Xpf-Mu-t34"/>
+                                                <constraint firstAttribute="trailing" secondItem="Qux-xV-DIc" secondAttribute="trailing" constant="2" id="f4l-GP-oBb"/>
+                                                <constraint firstItem="nkq-8P-dI7" firstAttribute="leading" secondItem="Qux-xV-DIc" secondAttribute="leading" id="hBB-Hu-PWV"/>
+                                                <constraint firstItem="nkq-8P-dI7" firstAttribute="width" secondItem="Qux-xV-DIc" secondAttribute="width" id="j6v-MA-DJl"/>
+                                                <constraint firstItem="Qux-xV-DIc" firstAttribute="leading" secondItem="kis-Ea-y6W" secondAttribute="trailing" constant="24" id="m8M-ku-1wL"/>
+                                                <constraint firstItem="Qux-xV-DIc" firstAttribute="top" secondItem="Kvw-wd-gFS" secondAttribute="top" constant="8" id="nyT-rO-Fqp"/>
+                                                <constraint firstItem="GLd-pe-wvO" firstAttribute="centerX" secondItem="kis-Ea-y6W" secondAttribute="centerX" id="r7j-aK-lfg"/>
+                                                <constraint firstItem="kis-Ea-y6W" firstAttribute="top" secondItem="Kvw-wd-gFS" secondAttribute="top" constant="2" id="vtR-KR-WEG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="adresseLabel" destination="Qux-xV-DIc" id="yxH-ik-PKq"/>
+                                            <outlet property="dateMajLabel" destination="nkq-8P-dI7" id="drJ-gq-uQw"/>
+                                            <outlet property="meteoImageView" destination="kis-Ea-y6W" id="nfT-sk-Axp"/>
+                                            <outlet property="temperatureLabel" destination="GLd-pe-wvO" id="NNu-2e-8wf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hm8-vE-47b" id="e4E-TN-K2q"/>
+                                    <outlet property="delegate" destination="hm8-vE-47b" id="ZWq-8K-wy3"/>
+                                </connections>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="1qE-AB-evB">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Historique des données météo" id="niY-R2-ERl"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1qE-AB-evB" firstAttribute="top" secondItem="YiG-aC-tGC" secondAttribute="bottom" id="3xT-re-WFc"/>
+                            <constraint firstItem="1qE-AB-evB" firstAttribute="leading" secondItem="BzD-Dc-Tlk" secondAttribute="leading" id="5bH-fV-WXu"/>
+                            <constraint firstItem="6vm-sU-gyv" firstAttribute="top" secondItem="hkA-MA-rpf" secondAttribute="bottom" id="7EG-XE-ssI"/>
+                            <constraint firstAttribute="trailing" secondItem="1qE-AB-evB" secondAttribute="trailing" id="WQc-c4-Zd5"/>
+                            <constraint firstItem="hkA-MA-rpf" firstAttribute="leading" secondItem="BzD-Dc-Tlk" secondAttribute="leading" id="p0X-OD-UWW"/>
+                            <constraint firstAttribute="trailing" secondItem="hkA-MA-rpf" secondAttribute="trailing" id="ssD-YP-5P5"/>
+                            <constraint firstItem="hkA-MA-rpf" firstAttribute="top" secondItem="1qE-AB-evB" secondAttribute="bottom" id="wvR-Dt-Rs2"/>
+                        </constraints>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2448.8000000000002" y="46.326836581709152"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="dq7-c0-Wxj">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FUb-hG-qco" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5su-iL-uc8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="5su-iL-uc8">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -176,10 +283,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Sk-bN-ghU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="914" y="842"/>
+            <point key="canvasLocation" x="738" y="786"/>
         </scene>
     </scenes>
     <resources>
+        <image name="history" width="64" height="64"/>
         <image name="home" width="32" height="32"/>
         <image name="location" width="32" height="32"/>
     </resources>

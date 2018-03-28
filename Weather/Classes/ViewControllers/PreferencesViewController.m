@@ -29,12 +29,14 @@
                                                             target:self
                                                             action:@selector(savePreferences:)];
     
+    [save setTintColor:[UIColor whiteColor]];
     self.navigationItem.rightBarButtonItem = save;
     
     UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Annuler"
                                                              style:UIBarButtonItemStylePlain
                                                             target:self
                                                             action:@selector(goBack:)];
+    [back setTintColor:[UIColor whiteColor]];
     self.navigationItem.leftBarButtonItem = back;
 }
 
